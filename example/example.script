@@ -33,8 +33,7 @@ function final(self)
 end
 
 function update(self, dt)
-	-- Add update code here
-	-- Remove this function if not needed
+	label.set_text("#playlist_info", soundbank.get_time_left_current_playing_music("playlist_darkmood"))
 end
 
 function on_message(self, message_id, message, sender)

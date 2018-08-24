@@ -55,9 +55,6 @@ M.PLAYLIST_PLAYING = 2
 
 ---- SoundBanks ----
 
-function M.add_soundbank(name, url, list)
-end
-
 -- this has to be done within the context of the update() of the soundbank.script
 function M.load_soundbank(name)
 	if not M.soundbanks[name] then
@@ -91,7 +88,6 @@ function M.report_loaded_soundbank(url)
 			name = key
 		end
 	end
-
 	
 	msg.post(url, "enable")
 	if not M.soundbanks[name] then
@@ -123,6 +119,11 @@ end
 ---- Music ----
 
 function M.get_time_left_current_playing_music(playlist)
+	if M.playlists[playlist].current_time then
+		return math.floor((M.playlists[playlist].tracks[M.playlists[playlist].current_track].time - M.playlists[playlist].current_time) * 100) * 0.01
+	else
+		return 0
+	end
 end
 
 function M.add_playlist(playlist, songs, playback)
