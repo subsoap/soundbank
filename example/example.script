@@ -1,6 +1,8 @@
 local soundbank = require("soundbank.soundbank")
 
 function init(self)
+
+	-- todo add some GUI audio sliders for real time level control
 	
 	msg.post(".", "acquire_input_focus")
 	soundbank.verbose = true

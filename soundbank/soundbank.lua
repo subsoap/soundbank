@@ -269,7 +269,7 @@ function M.process_playlists(dt) -- need to break this into more functions proba
 				M.soundbanks[current_song].url_actual.fragment = "music"
 				
 				M.playlists[key].status = M.PLAYLIST_PLAYING
-				msg.post(M.soundbanks[current_song].url_actual, "play_sound")
+				msg.post(M.soundbanks[current_song].url_actual, "play_sound") -- needs to use music tag * master gain
 			end
 			
 		end

@@ -9,7 +9,7 @@ width = 960
 height = 640
 
 [project]
-title = soundbank
+title = SoundBank
 
 [library]
 include_dirs = soundbank
