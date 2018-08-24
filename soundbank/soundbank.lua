@@ -104,7 +104,6 @@ function M.report_loaded_soundbank(url)
 end
 
 function M.unload_soundbank(name)
-	pprint(M.soundbanks[name])
 	M.soundbanks[name].status = M.SOUNDBANK_UNLOADED
 	msg.post(M.soundbanks[name].url, "disable")
 	msg.post(M.soundbanks[name].url, "unload") -- final is called auto here
@@ -254,7 +253,6 @@ function M.process_playlists(dt) -- need to break this into more functions proba
 				current_song = M.playlists[key].tracks[M.playlists[key].current_track].name
 			end
 
-			print(current_song)
 
 			M.playlists[key].current_song = current_song
 
