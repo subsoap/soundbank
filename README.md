@@ -1,2 +1,3 @@
-# soundbank
-Easily play sounds and music in Defold
+# SoundBank
+
+Easily play sounds and music playlists in Defold

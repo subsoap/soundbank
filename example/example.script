@@ -1,0 +1,62 @@
+local soundbank = require("soundbank.soundbank")
+
+function init(self)
+	
+	msg.post(".", "acquire_input_focus")
+	soundbank.verbose = true
+	soundbank.play_sound("sound")
+	soundbank.play_sound("sound")
+	soundbank.play_sound("sound")
+
+	local songs = 
+	{
+		-- this is NOT the order of the songs to play when not doing shuffle
+		-- todo let users pass a song order list
+		song_1 = {url = nil, time = 5},
+		song_2 = {url = nil, time = 5},
+		song_3 = {url = nil, time = 5}
+	}
+	--soundbank.add_playlist("playlist_darkmood", songs, soundbank.PLAYBACK_SHUFFLE)
+	soundbank.add_playlist("playlist_darkmood", songs)
+	soundbank.play_playlist("playlist_darkmood")
+	soundbank.play_playlist("playlist_darkmood2")
+	pprint(soundbank.playlists)
+end
+
+function final(self)
+	-- Add finalization code here
+	-- Remove this function if not needed
+end
+
+function update(self, dt)
+	-- Add update code here
+	-- Remove this function if not needed
+end
+
+function on_message(self, message_id, message, sender)
+	-- Add message-handling code here
+	-- Remove this function if not needed
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.released then
+		soundbank.play_sound("sound")
+		soundbank.play_sound("sound")
+		soundbank.play_sound("sound")
+		soundbank.play_sound("sound2", 2, 0.25, true, nil, "/_soundbank2#sound")
+		soundbank.play_sound("sound2", 0.5, 0.35, false, nil, "/_soundbank2#sound")
+		soundbank.play_sound("sound2", 0.3, 0.45, false, nil, "/_soundbank2#sound")
+		pprint(soundbank.playlists)
+	end
+	if action_id == hash("key_up") and action.released then
+		soundbank.fading = soundbank.FADING_FADE_IN
+	end
+	if action_id == hash("key_down") and action.released then
+		soundbank.fading = soundbank.FADING_FADE_OUT
+	end	
+end
+
+function on_reload(self)
+	-- Add reload-handling code here
+	-- Remove this function if not needed
+end
