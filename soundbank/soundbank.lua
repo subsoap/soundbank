@@ -51,7 +51,7 @@ M.PLAYLIST_NOT_PLAYING = 0
 M.PLAYLIST_WAITING_FOR_SOUNDBANK = 1
 M.PLAYLIST_PLAYING = 2
 
-
+M.stop_all_music_flag = false
 
 ---- SoundBanks ----
 
@@ -291,13 +291,25 @@ function M.play_playlist(playlist)
 	end
 end
 
+-- this should probably be put into a queue instead to process in the soundbank.script context
 function M.stop_playlist(playlist)
+	if M.playlists[playlist].status == M.PLAYLIST_PLAYING then
+		msg.post(M.soundbanks[M.playlists[playlist].current_song].url_actual, "stop_sound")
+		M.unload_soundbank(M.playlists[playlist].current_song)
+		M.playlists[playlist].current_time = 0
+		M.playlists[playlist].status = M.PLAYLIST_NOT_PLAYING
+	end
 end
 
 function M.stop_all_music()
+	M.stop_all_music_flag = true
 end
 
 ---- Sounds ----
+
+-- todo - soundbanks for sounds, have them timeout when sounds in a sound soundbank are not used, unloads that soundbank
+-- sounds go on a master list, if any sound is played that has its soundbank unloaded readd it
+-- if a soundbank is not associated with a sound it is assumed to be always loaded
 
 function M.play_sound(sound, gain, delay, gated, tag, url)
 	assert(sound, "SoundBank: play_sound - You must specify a sound to play.")
@@ -375,12 +387,18 @@ function M.update(dt)
 			M.gated[key] = nil
 		end
 	end
+	if M.stop_all_music_flag == true then
+		M.stop_all_music_flag = false
+		for key, value in pairs(M.playlists) do
+			M.stop_playlist(key)
+		end
+	end
 	M.process_sound_queue()
 	M.process_music_queue()
 	M.process_playlists(dt)
 	M.process_fading(dt)
 	M.process_soundbank_loading_queue()
-	if M.disable_music_if_device_music_is_playing == true and sound.is_music_playing() then M.stop_all_music() end
+	if M.disable_music_if_device_music_is_playing and sound.is_music_playing() then M.stop_all_music() end
 end
 
 
