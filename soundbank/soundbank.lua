@@ -248,7 +248,6 @@ function M.process_playlists(dt) -- need to break this into more functions proba
 			
 			local current_song = nil
 
-			-- something is fucked up here!
 			if M.playlists[key].playback == M.PLAYBACK_SHUFFLE then
 				current_song = M.playlists[key].tracks[M.playlists[key].shuffle_list[M.playlists[key].current_shuffle_list]].name
 			else

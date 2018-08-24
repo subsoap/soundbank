@@ -2,6 +2,8 @@ local soundbank = require("soundbank.soundbank")
 
 function init(self)
 
+	math.randomseed(os.time())
+	math.random();math.random();math.random();math.random();
 	-- todo add some GUI audio sliders for real time level control
 	
 	msg.post(".", "acquire_input_focus")
@@ -18,8 +20,8 @@ function init(self)
 		song_2 = {url = nil, time = 5},
 		song_3 = {url = nil, time = 5}
 	}
-	--soundbank.add_playlist("playlist_darkmood", songs, soundbank.PLAYBACK_SHUFFLE)
-	soundbank.add_playlist("playlist_darkmood", songs)
+	soundbank.add_playlist("playlist_darkmood", songs, soundbank.PLAYBACK_SHUFFLE)
+	--soundbank.add_playlist("playlist_darkmood", songs)
 	soundbank.play_playlist("playlist_darkmood")
 	soundbank.play_playlist("playlist_darkmood2")
 	pprint(soundbank.playlists)
